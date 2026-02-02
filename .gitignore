@@ -1,0 +1,24 @@
+
+---
+
+# 5) `.gitignore`（乾淨、夠用的 Python + VS Code 版本）
+```gitignore
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual env
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
