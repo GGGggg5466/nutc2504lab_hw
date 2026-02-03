@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NUTC 個人名片頁</title>
+  <link rel="stylesheet" href="./color.css">
+</head>
+<body>
+  <main class="card">
+    <header class="header">
+      <h1>阮荏浩 Randy</h1>
+      <p class="subtitle">NUTC 個人名片頁｜GitHub Pages 練習</p>
+    </header>
+
+    <section class="info">
+      <h2>基本資料</h2>
+      <ul>
+        <li><b>班級：</b>資工三1</li>
+        <li><b>姓名：</b>阮荏浩 Randy</li>
+        <li><b>Email：</b><a href="mailto:875496321vh@gmail.com">875496321vh@gmail.com</a></li>
+      </ul>
+    </section>
+git status
+    <section class="info">
+      <h2>技能 / 興趣</h2>
+      <p>睡覺，騎車，考試，吃麥當勞</p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">Git/GitHub</span>
+        <span class="tag">Web</span>
+        <span class="tag">NLP</span>
+      </div>
+    </section>
+
+    <section class="info">
+      <h2>小互動</h2>
+      <button id="btn">點我一下</button>
+      <p id="msg" class="muted">（等待你點按鈕…）</p>
+    </section>
+
+    <footer class="footer">
+      <small>© 2026 NUTC | built on GitHub Pages</small>
+    </footer>
+  </main>
+
+  <script>
+    const btn = document.getElementById("btn");
+    const msg = document.getElementById("msg");
+
+    btn.addEventListener("click", () => {
+      const now = new Date().toLocaleString();
+      msg.textContent = `✅ 你在 ${now} 點了按鈕！`;
+    });
+  </script>
+</body>
+</html>
