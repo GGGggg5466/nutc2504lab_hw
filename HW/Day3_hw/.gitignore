@@ -1,0 +1,31 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# ===== Env / secrets =====
+.env
+.env.*
+!.env.example
+
+# ===== OS / Editor =====
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ===== Meeting assistant generated outputs =====
+meeting_assistant/output/
+meeting_assistant/tools/output/
+meeting_assistant/tools/out/
+
+# ===== Logs =====
+*.log
+
+# ===== Optional: if you DON'T want to commit large audio files =====
+# meeting_assistant/input/*.wav
+# meeting_assistant/tools/audio/*.wav
