@@ -1,48 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PROJECT_0202</title>
-    <link rel="stylesheet" href="color.css" />
-  </head>
-
-  <body>
-    <header class="container">
-      <h1>PROJECT_0202 – GitHub Pages</h1>
-      <p class="subtitle">用來練習 Git / GitHub：commit、push、branch、PR。</p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NUTC 個人名片頁</title>
+  <link rel="stylesheet" href="./color.css">
+</head>
+<body>
+  <main class="card">
+    <header class="header">
+      <h1>阮荏浩 Randy</h1>
+      <p class="subtitle">NUTC 個人名片頁｜GitHub Pages 練習</p>
     </header>
 
-    <main class="container card">
-      <h2>你可以做什麼？</h2>
-      <ol>
-        <li>改這頁文字 → commit → push</li>
-        <li>新增一個功能分支 → push → 開 PR</li>
-        <li>合併後回 main → pull 同步</li>
-      </ol>
+    <section class="info">
+      <h2>基本資料</h2>
+      <ul>
+        <li><b>班級：</b>資工三1</li>
+        <li><b>姓名：</b>阮荏浩 Randy</li>
+        <li><b>Email：</b><a href="mailto:875496321vh@gmail.com">875496321vh@gmail.com</a></li>
+      </ul>
+    </section>
+git status
+    <section class="info">
+      <h2>技能 / 興趣</h2>
+      <p>睡覺，騎車，考試，吃麥當勞</p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">Git/GitHub</span>
+        <span class="tag">Web</span>
+        <span class="tag">NLP</span>
+      </div>
+    </section>
 
-      <h2>快速測試</h2>
-      <p>
-        打開 <code>index.html</code> 就能看到頁面；
-        另外也可以跑 <code>test.py</code> 來做 Python 測試。
-      </p>
-
+    <section class="info">
+      <h2>小互動</h2>
       <button id="btn">點我一下</button>
-      <p id="msg" class="muted">（你還沒點）</p>
-    </main>
+      <p id="msg" class="muted">（等待你點按鈕…）</p>
+    </section>
 
-    <footer class="container footer">
-      <small>© 2026 PROJECT_0202 • by you</small>
+    <footer class="footer">
+      <small>© 2026 NUTC | built on GitHub Pages</small>
     </footer>
+  </main>
 
-    <script>
-      const btn = document.getElementById("btn");
-      const msg = document.getElementById("msg");
+  <script>
+    const btn = document.getElementById("btn");
+    const msg = document.getElementById("msg");
 
-      btn.addEventListener("click", () => {
-        const now = new Date().toLocaleString();
-        msg.textContent = `你在 ${now} 點了按鈕 ✅`;
-      });
-    </script>
-  </body>
+    btn.addEventListener("click", () => {
+      const now = new Date().toLocaleString();
+      msg.textContent = `✅ 你在 ${now} 點了按鈕！`;
+    });
+  </script>
+</body>
 </html>

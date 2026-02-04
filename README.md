@@ -1,17 +1,14 @@
-# project0202
+# NUTC2504LAB_HW（GitHub Pages 作業）
 
-用來練習 Git / GitHub 的基本流程（commit / push / branch / PR）。
+- 作業日期：2026/02/02
+- 班級：＿資工三1＿＿＿＿
+- 姓名：＿阮荏浩＿＿＿＿
+- Email：＿875496321vh@gmail.com＿＿＿＿
 
 ## 內容
-- `index.html`：簡單網頁（可直接用瀏覽器打開）
-- `color.css`：網頁樣式
-- `test.py`：Python 測試腳本（可直接執行）
-- `.gitignore`：忽略不該上傳的檔案
+- `index.html`：個人名片頁（GitHub Pages）
+- `color.css`：頁面樣式
+- `test.py`：Hello world
 
-## 快速開始
-### 開網頁
-直接雙擊 `index.html`（或用 VS Code Live Server 也可以）
-
-### 跑 Python
-```bash
-python test.py
+## GitHub Pages
+（等你開好 Pages 後把網址貼在這裡）
