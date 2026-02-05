@@ -1,3 +1,69 @@
+## 📘 Day4 HW：自動查證 AI（Automatic Fact-Checking Agent）
+
+本作業為課後實戰「自動查證 AI」，以 **LangGraph + LangChain** 建立一個具備  
+**快取（Cache）／規劃（Planner）／搜尋（Search）／查證與回答（Final Answer）** 的多節點 Workflow。
+
+系統可針對使用者輸入問題：
+- 先檢查是否已有可信快取結果
+- 若無，透過規劃器決定是否需要搜尋
+- 使用搜尋工具取得外部資料
+- 統整來源後產生最終查證回答
+- 並將結果寫回快取供後續使用
+
+---
+
+## 🧠 系統流程說明（對應作業流程圖）
+
+整體流程如下：
+
+1. **input**
+2. **check_cache**
+   - 若快取命中（Cache Hit），直接回傳結果
+   - 若未命中，進入 Planner
+3. **planner**
+   - 評估問題是否需要外部搜尋
+   - 決定後續執行路徑
+4. **query_gen**
+   - 產生適合搜尋引擎使用的關鍵字
+5. **search_tool**
+   - 進行外部搜尋（如 searxNG）
+6. **final_answer**
+   - 整理證據、產生最終查證結果
+7. **end**
+
+---
+
+## ⚠️ 關於流程圖「路徑多一條」的說明（重要補充）
+
+在實際執行時，透過 `app.get_graph()` 或 Mermaid / ASCII 輸出所顯示的流程圖中，  
+**planner 節點看起來會有「多一條連線」的情況**，例如：
+
+- planner → search_tool（conditional）
+- planner → query_gen（conditional）
+- planner → final_answer（conditional）
+
+視覺上可能會誤以為有「重複邊」或「多餘路徑」。
+
+### ✅ 實際狀況說明
+
+- **這不是程式邏輯錯誤**
+- 在實際 Graph 結構中：
+  - 每個 conditional edge 只定義一次
+  - 同一時間只會走其中一條路徑
+- 顯示上的「多一條線」屬於 **LangGraph 圖形視覺化的呈現問題**
+  - 多個 conditional edge 疊加後，視覺上會被畫成多條線
+  - 但實際執行時不會同時觸發
+
+### 🔍 驗證方式
+
+透過實際列印 Graph Edges 可確認：
+
+```python
+g = app.get_graph()
+for e in g.edges:
+    print(e)
+```
+
 # Day4 HW — LangGraph 進階應用與效能優化
 
 本作業為 LangGraph 進階應用實作，重點在於 **從線性 Chain 架構，進化到具備 Retry、Reflection、人類審核與 Cache 的實務型 Workflow**。  
