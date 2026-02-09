@@ -117,52 +117,59 @@ def score_api(session: requests.Session, score_url: str, q_id: int, student_answ
     raise ValueError(f"score API 回傳格式看不到 score：{data}")
 
 
-def qdrant_search_top1(client, collection: str, query_vector):
+def qdrant_search_topk(client, collection: str, query_vector, top_k: int = 1):
+    hits = None
+
     # 新版：client.search(...)
     if hasattr(client, "search"):
         hits = client.search(
             collection_name=collection,
             query_vector=query_vector,
-            limit=1,
+            limit=top_k,
             with_payload=True,
         )
-        if not hits:
-            return "", ""
-        pay = hits[0].payload or {}
-        return pay.get("text", ""), pay.get("source", "")
 
     # 舊版：client.search_points(...)
-    if hasattr(client, "search_points"):
+    elif hasattr(client, "search_points"):
         res = client.search_points(
             collection_name=collection,
             vector=query_vector,
-            limit=1,
+            limit=top_k,
             with_payload=True,
         )
-        # 有些版本回傳物件帶 points，有些直接 list
         hits = res.points if hasattr(res, "points") else res
-        if not hits:
-            return "", ""
-        pay = hits[0].payload or {}
-        return pay.get("text", ""), pay.get("source", "")
 
     # 部分版本：client.query_points(...)
-    if hasattr(client, "query_points"):
+    elif hasattr(client, "query_points"):
         res = client.query_points(
             collection_name=collection,
             query=query_vector,
-            limit=1,
+            limit=top_k,
             with_payload=True,
         )
         hits = res.points if hasattr(res, "points") else []
-        if not hits:
-            return "", ""
-        pay = hits[0].payload or {}
-        return pay.get("text", ""), pay.get("source", "")
 
-    raise RuntimeError("你的 qdrant-client 版本沒有 search/search_points/query_points，請升級 qdrant-client。")
+    else:
+        raise RuntimeError("你的 qdrant-client 版本沒有 search/search_points/query_points")
 
+    # ====== 這段就放在這裡：跟 if/elif 同層（函式內的最外層）======
+    if not hits:
+        return "", ""
 
+    texts = []
+    sources = []
+    for h in hits:
+        pay = getattr(h, "payload", None) or {}
+        t = pay.get("text", "")
+        s = pay.get("source", "")
+        if t:
+            texts.append(t)
+        if s:
+            sources.append(s)
+
+    retrieve_text = "\n---\n".join(texts)
+    source = sources[0] if sources else ""
+    return retrieve_text, source
 
 def run(
     questions_csv: str,
@@ -196,7 +203,7 @@ def run(
         q_vec = qid_to_vec[qi.q_id]
 
         for method_name, collection in METHODS:
-            retrieve_text, source = qdrant_search_top1(qdrant, collection, q_vec)
+            retrieve_text, source = qdrant_search_topk(qdrant, collection, q_vec)
 
             # 如果真的搜不到（理論上不會），給一個最小字串避免 API 失敗
             if not retrieve_text.strip():
@@ -229,7 +236,7 @@ def run(
 def build_argparser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(description="Day5 RAG HW01 - Qdrant retrieval version")
     ap.add_argument("--questions", default="questions.csv", help="questions.csv path")
-    ap.add_argument("--out", default="s1411232035_RAG_HW_01_qdrant.csv", help="output csv path")
+    ap.add_argument("--out", default="s1411232035_RAG_HW_01.csv", help="output csv path")
     ap.add_argument("--qdrant-url", default=QDRANT_URL_DEFAULT, help="Qdrant URL (e.g., http://localhost:6333)")
     ap.add_argument("--embed-url", default=EMBED_URL_DEFAULT, help="Embedding API URL")
     ap.add_argument("--score-url", default=SCORE_URL_DEFAULT, help="Scoring API URL")
