@@ -24,22 +24,25 @@ def load_jsonl(path):
             items.append(json.loads(line))
     return items
 
-def ensure_collection(client: QdrantClient, name: str):
-    # 如果已存在就跳過；不存在就建
+def recreate_collection(client: QdrantClient, name: str, dim: int):
+    # 1) 如果存在就刪掉
     try:
-        client.get_collection(name)
-        return
+        client.delete_collection(collection_name=name)
+        print(f"[INFO] drop collection: {name}")
     except Exception:
+        # 有些版本不存在會丟錯，忽略即可
         pass
 
+    # 2) 重建
     client.create_collection(
         collection_name=name,
-        vectors_config=VectorParams(size=DIM, distance=Distance.COSINE),
+        vectors_config=VectorParams(size=dim, distance=Distance.COSINE),
     )
+    print(f"[INFO] create collection: {name} (dim={dim})")
 
 def index_jsonl_to_collection(jsonl_path: str, collection: str, method_name: str, batch_size=32):
     client = QdrantClient(url=QDRANT_URL)
-    ensure_collection(client, collection)
+    recreate_collection(client, collection, DIM)
 
     chunks = load_jsonl(jsonl_path)
 
