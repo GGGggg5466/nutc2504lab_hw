@@ -23,3 +23,6 @@ Thumbs.db
 # VS Code
 .vscode/
 verify_cache.json
+
+# Windows download metadata
+*:Zone.Identifier
