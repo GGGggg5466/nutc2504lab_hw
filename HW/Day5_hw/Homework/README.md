@@ -31,18 +31,18 @@ Homework/
 本作業比較以下三種切塊策略：
 
 ### 1️⃣ 固定大小切塊（Fixed-size Chunking）
-- `chunk_size = 256`
-- `overlap = 0`
+- `chunk_size = 512`
+- `overlap = 64`
 - 每個 chunk 長度固定，不考慮語意邊界
 
 ### 2️⃣ 滑動視窗切塊（Sliding Window）
-- `chunk_size = 256`
-- `overlap = 48`
+- `chunk_size = 384`
+- `overlap = 128`
 - 相鄰 chunk 保留部分重疊文字，提高上下文連貫性
 
 ### 3️⃣ 語意切塊（Semantic Chunking）
-- `max_tokens = 256`
-- `min_tokens = 80`
+- `max_tokens = 512`
+- `min_tokens = 84`
 - `similarity_threshold = 0.12`
 - 依據 embedding 相似度動態決定切塊邊界
 

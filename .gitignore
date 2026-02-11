@@ -1,32 +1,39 @@
-
----
-
-# 5) `.gitignore`（乾淨、夠用的 Python + VS Code 版本）
-```gitignore
+# =========================
 # Python
+# =========================
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
+# =========================
 # Virtual env
+# =========================
 .venv/
 venv/
+env/
 
+# =========================
 # Jupyter
+# =========================
 .ipynb_checkpoints/
 
+# =========================
 # OS
+# =========================
 .DS_Store
 Thumbs.db
 
+# =========================
 # VS Code
+# =========================
 .vscode/
 verify_cache.json
 
 # Windows download metadata
 *:Zone.Identifier
 
+<<<<<<< HEAD
 # --- local/secrets ---
 .env
 .env.*
@@ -39,3 +46,37 @@ qdrant_storage/
 **/.deepeval/
 **/*telemetry*.txt
 *.log
+=======
+# =========================
+# Secrets / local configs
+# =========================
+.env
+.env.*
+*.key
+*.pem
+
+# =========================
+# Qdrant (local vector DB storage)
+# =========================
+qdrant_storage/
+**/qdrant_storage/
+**/qdrant_data/
+**/qdrant/
+
+# =========================
+# DeepEval / telemetry / logs
+# =========================
+**/.deepeval/
+**/*telemetry*.txt
+*.log
+**/*.log
+
+# =========================
+# Outputs / caches (RAG experiments)
+# =========================
+outputs/
+**/outputs/
+*.jsonl.tmp
+*.tmp
+
+>>>>>>> origin/main
