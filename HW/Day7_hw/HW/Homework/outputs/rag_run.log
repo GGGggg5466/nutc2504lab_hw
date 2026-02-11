@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/randy/Day7_hw/Homework/rag_answer.py", line 215, in <module>
+    main()
+  File "/home/randy/Day7_hw/Homework/rag_answer.py", line 183, in main
+    ctxs = retrieve_context(client, args.collection, q_vec, top_k=args.top_k, exclude_injection=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/randy/Day7_hw/Homework/rag_answer.py", line 84, in retrieve_context
+    hits = client.search(
+           ^^^^^^^^^^^^^
+AttributeError: 'QdrantClient' object has no attribute 'search'
