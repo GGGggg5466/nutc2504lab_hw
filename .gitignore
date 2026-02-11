@@ -33,6 +33,20 @@ verify_cache.json
 # Windows download metadata
 *:Zone.Identifier
 
+<<<<<<< HEAD
+# --- local/secrets ---
+.env
+.env.*
+
+# --- qdrant local storage (never commit) ---
+qdrant_storage/
+**/qdrant_storage/
+
+# --- eval/telemetry/logs ---
+**/.deepeval/
+**/*telemetry*.txt
+*.log
+=======
 # =========================
 # Secrets / local configs
 # =========================
@@ -65,3 +79,4 @@ outputs/
 *.jsonl.tmp
 *.tmp
 
+>>>>>>> origin/main
