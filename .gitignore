@@ -26,3 +26,16 @@ verify_cache.json
 
 # Windows download metadata
 *:Zone.Identifier
+
+# --- local/secrets ---
+.env
+.env.*
+
+# --- qdrant local storage (never commit) ---
+qdrant_storage/
+**/qdrant_storage/
+
+# --- eval/telemetry/logs ---
+**/.deepeval/
+**/*telemetry*.txt
+*.log
